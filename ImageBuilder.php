@@ -1,16 +1,17 @@
 <?php
     /**     
-     methods:
-        can_upload - Возможно ли загрузить фото
-        make_upload - загружает фотку в файл систем, возвращает путь(полный)
-        delete - удалить фото
-        change - заменить или удалить создать с тем же неймом
-        openPhoto - открыть файл в php из файл системы нужным методом
-        flip - отразить по вертикали
-        rotate - отразить по горизонтали
-        resize - изменить размер        
+     methods:        
+        can_upload - Возможно ли загрузить фото(return true or false)
+        make_upload - uploads a photo to the file system (and returning full path of photo)
+        delete - deleting photo (will return true if result is success)        
+        wAndB - makes photo black and white
+        flip - mirror reflection
+        rotate - Rotates the photo
+        negative - Applying a negative filter
+        resize - change size of photo
+        openPhoto - open the file in php from the system file using the desired method     
 	 */
-    
+
     namespace Components;
     class ImageBuilder
     {
@@ -59,7 +60,7 @@
             }             
         }
         
-        public static function openPhoto($photo)
+        private static function openPhoto($photo)
         {
             $info = getimagesize($photo);
             
@@ -116,7 +117,7 @@
                 return "Нет такой фотографии";
             }            
             $source = self::openPhoto($photo);
-            $old = imagerotate($source, 123, 000);
+            $old = imagerotate($source, 90, 000);
             imagejpeg($old, $photo, 75);
             return true; 
         }
